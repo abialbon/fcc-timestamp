@@ -1,11 +1,13 @@
 const http  = require('http');
 const fs    = require('fs');
+const url   = require('url');
 const PORT  = process.env.PORT || 3000;
 const IP    = '127.0.0.1';  
 const server = http.createServer((req, res) => {
-    fs.readFile('./index.html', (error, data) => {
+    const pathname = '.' + url.parse(req.url).pathname;
+    fs.readFile(pathname, (error, data) => {
         if (error) {
-            es.writeHead(404, { 'Content-Type' : 'text/html'});
+            res.writeHead(404, { 'Content-Type' : 'text/html'});
             res.end("<h1>The page you are looking for is not found in the server</h1>");
         } else {
             res.writeHead(200, { 'Content-Type' : 'text/html'});
