@@ -7,8 +7,8 @@
 3. If it does not contain a date or Unix timestamp, it returns null for those properties.
 
 ### Example Useage:
-            https://timestamp-ms.herokuapp.com/December%2015,%202015
-            https://timestamp-ms.herokuapp.com/1450137600
+            https://honey-riverbed.glitch.me/December%2015,%202015
+            https://honey-riverbed.glitch.me/1450137600
         
 ### Example Output
 
