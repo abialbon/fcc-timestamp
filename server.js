@@ -6,7 +6,7 @@ const IP    = '127.0.0.1';
 const server = http.createServer((req, res) => {
     const pathname = '.' + url.parse(req.url).pathname;
     if ((pathname === './') || (pathname === './index.html')) {
-        fs.readFile(pathname, (error, data) => {
+        fs.readFile('./index.html', (error, data) => {
             if (error) {
                 res.writeHead(404, { 'Content-Type' : 'text/html'});
                 res.end("<h1>The page you are looking for is not found in the server</h1>");
