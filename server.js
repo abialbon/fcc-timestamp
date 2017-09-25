@@ -16,19 +16,32 @@ const server = http.createServer((req, res) => {
             }
         });
     } else {
+        // ******************************
+        // Format the url for processing
+        // ******************************
+
         // Remove %20 and replace with " "
         let params = pathname.split('%20').join(" ");
         // Remove the initial two chars "./"
         params = params.split("").splice(2, pathname.length).join("");
+
         const dateObj = {};
         res.writeHead(200, { 'Content-Type' : 'application/json'}); 
-        if (isNaN(params)) {
-            // Date Stamp
-            dateObj.unix    = Date.parse(params) / 1000;
-            dateObj.natural = params;
+
+        // ******************************
+        // Check if Date Stamp || UNIX stamp
+        // ******************************
+        if (isNaN(params)) { // Date stamp if params is not a number
+            // Check for valid date stamp by parsing date
+            if (!isNaN(Date.parse(params))) {
+                dateObj.unix    = Date.parse(params) / 1000;
+                dateObj.natural = params;
+            } else {
+                dateObj.unix    = null;
+                dateObj.natural = null;
+            }
             res.end(JSON.stringify(dateObj));
-        } else {
-            // Unix
+        } else { // Unix stamp if params is a number
             dateObj.unix = Number(params);
             const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             let date = new Date(Number(params) * 1000);
